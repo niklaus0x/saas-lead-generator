@@ -3,7 +3,23 @@
   "version": "1.0.0",
   "description": "Twitch chat bot for niklaus0x — managed by Tola (AI Social Media Manager)",
   "main": "index.js",
-  "scripts": { "start": "node index.js", "dev": "nodemon index.js" },
-  "dependencies": { "axios": "^1.6.0", "dotenv": "^16.3.1", "tmi.js": "^1.8.5" },
-  "devDependencies": { "nodemon": "^3.0.1" }
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "setup": "node setup/run-all.js",
+    "setup:account": "node setup/create-account.js",
+    "setup:token": "node setup/get-oauth-token.js",
+    "setup:app": "node setup/create-dev-app.js",
+    "setup:deploy": "node setup/deploy-railway.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "tmi.js": "^1.8.5",
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": { "node": ">=18.0.0" }
 }
