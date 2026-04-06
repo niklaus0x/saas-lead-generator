@@ -1,0 +1,9 @@
+{
+  "name": "niklaus0x-twitch-bot",
+  "version": "1.0.0",
+  "description": "Twitch chat bot for niklaus0x — managed by Tola (AI Social Media Manager)",
+  "main": "index.js",
+  "scripts": { "start": "node index.js", "dev": "nodemon index.js" },
+  "dependencies": { "axios": "^1.6.0", "dotenv": "^16.3.1", "tmi.js": "^1.8.5" },
+  "devDependencies": { "nodemon": "^3.0.1" }
+}

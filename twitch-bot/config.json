@@ -1,0 +1,38 @@
+{
+  "channel": "niklaus0x",
+  "prefix": "!",
+  "commands": {
+    "links": "🔗 All my links: linktr.ee/niklaus0x",
+    "schedule": "📅 Stream schedule: Mon / Wed / Fri at 8PM WAT!",
+    "discord": "💬 Join the Discord: [ADD YOUR DISCORD LINK HERE]",
+    "socials": "📱 Find me on: Instagram | Twitter/X | TikTok | YouTube → @niklaus0x",
+    "github": "💻 Check out my GitHub: github.com/niklaus0x",
+    "lurk": "See you on the other side! Thanks for lurking! 👀",
+    "hype": "LET'S GOOO!! 🔥🔥🔥 THIS STREAM IS FIRE!! PogChamp PogChamp PogChamp",
+    "gg": "GG! Well played everyone! 🎮",
+    "followage": "You can check your follow age at: twitch.streamelements.com"
+  },
+  "moderation": {
+    "bannedWords": [],
+    "allowLinks": false,
+    "trustedUsers": [],
+    "capsThreshold": 0.8,
+    "capsMinLength": 10,
+    "emoteSpamLimit": 10,
+    "spamDetection": { "enabled": true, "maxSameMessages": 3, "windowSeconds": 30 }
+  },
+  "timedMessages": {
+    "intervalMinutes": 20,
+    "minChatActivity": 3,
+    "messages": [
+      "🎮 Enjoying the stream? Drop a follow if you haven't already!",
+      "💬 Join the Discord community: [ADD YOUR DISCORD LINK]",
+      "📱 Follow on socials @niklaus0x for updates and clips!",
+      "🔔 Hit that notification bell so you never miss a stream!",
+      "💜 Enjoying the content? Subscribing helps the channel grow!"
+    ]
+  },
+  "welcomeMessage": true,
+  "thankFollowers": true,
+  "thankSubs": true
+}
