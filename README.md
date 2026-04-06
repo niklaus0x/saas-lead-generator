@@ -1,49 +1,45 @@
-# 🎯 SaaS Lead Generator v2.0
+# 🎯 Lead Generator — Africa & USA
 
-Find **agencies and small teams** as potential SaaS customers across all **54 African countries + USA**.
+Find **agencies, small teams, and informal businesses** across all 54 African countries + USA.
 
 100% free — no API keys, no sign-up, no configuration required.
 
+## What It Finds
+
+- 🎉 **Event planners, caterers, ushering teams, DJs, MCs, photographers, makeup artists, decor**
+- 🍽️ **Catering businesses, restaurants, food vendors**
+- 💻 **Digital marketing agencies, web designers, graphic designers**
+- 🔧 **Cleaners, plumbers, electricians, logistics, dispatch riders**
+- 👗 **Tailors, fashion designers, hair salons, barbers**
+- ✈️ **Travel agencies, tour operators**
+- 🎓 **Tutors, vocational training centers**
+- ...and 80+ more service categories
+
 ## Features
 
-- 🏢 **Agency-focused** — defaults to founders, owners, CEOs at small teams (1–50 people)
+- 📱 **Social media search** — Facebook pages/groups, Instagram, Twitter, WhatsApp Business
+- 📍 **Google Maps** — finds local businesses near you
+- 📋 **Africa directories** — Yellow Pages NG, VConnect, Bark.com
+- 🔍 **Smart search** — uses multiple keyword variants per niche
 - 🌍 **55 countries** — all of Africa + United States
-- 🔍 **Smart search** — DuckDuckGo, OpenCorporates, Crunchbase (all free)
-- 📧 **Email tools** — pattern generation + MX validation + website scraping
-- 🏆 **Agency directories** — Clutch & GoodFirms search links
-- 📥 **CSV export** — 10-column format ready for outreach tools
-- ✏️ **Manual entry** — add/edit/delete leads
-- 🧪 **Test suite** — 8 tests included
+- 📥 **CSV export** — 10-column format for outreach tools
+- ✏️ **Manual entry** — add leads found on social media
 
 ## Quick Start
 
 ```bash
 npm install
 npm run dev
+# Open http://localhost:3000
 ```
 
-Open **http://localhost:3000** — works immediately, zero config.
-
-## Run Tests
-
-```bash
-# Terminal 1
-npm run server
-# Terminal 2
-npm test
-```
+Works immediately — zero config, no `.env` file needed.
 
 ## Tech Stack
 
-- **Frontend:** Next.js 14 + TypeScript + Tailwind CSS
-- **Backend:** Node.js + Express
-- **Search:** DuckDuckGo (free) + OpenCorporates (free)
-- **Email:** DNS MX validation + Cheerio scraper
-- **Export:** PapaParse CSV
+Next.js 14 + TypeScript + Tailwind CSS + Node.js/Express
+Search: DuckDuckGo · OpenCorporates · Bark.com · VConnect · Yellow Pages Nigeria · Google Maps
 
 ## Countries
 
-United States + Algeria, Angola, Benin, Botswana, Burkina Faso, Burundi, Cabo Verde, Cameroon, Central African Republic, Chad, Comoros, Congo (Brazzaville), Congo (Kinshasa), Djibouti, Egypt, Equatorial Guinea, Eritrea, Eswatini, Ethiopia, Gabon, Gambia, Ghana, Guinea, Guinea-Bissau, Ivory Coast, Kenya, Lesotho, Liberia, Libya, Madagascar, Malawi, Mali, Mauritania, Mauritius, Morocco, Mozambique, Namibia, Niger, Nigeria, Rwanda, Sao Tome and Principe, Senegal, Seychelles, Sierra Leone, Somalia, South Africa, South Sudan, Sudan, Tanzania, Togo, Tunisia, Uganda, Zambia, Zimbabwe
-
----
-MIT License
+United States + all 54 African nations
