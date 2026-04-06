@@ -1,0 +1,35 @@
+{
+  "name": "saas-lead-generator",
+  "version": "2.0.0",
+  "description": "SaaS Lead Generator — Find agencies & small teams across Africa + USA. Free tools only.",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "next dev",
+    "build": "next build",
+    "start": "node server/index.js & next start",
+    "test": "node tests/run-tests.js"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "cheerio": "^1.0.0-rc.12",
+    "papaparse": "^5.4.1",
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.16",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.3.0"
+  }
+}
