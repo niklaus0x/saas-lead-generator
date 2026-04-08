@@ -15,7 +15,7 @@ export default function Home() {
     setIsSearching(true); setSearchGuidance(null); setSearchTermsUsed([])
     setSearchStatus('Searching web, directories, and business registries...')
     try {
-      const res = await fetch('http://localhost:3001/api/search-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(searchParams) })
+      const res = await fetch('/api/search-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(searchParams) })
       if (!res.ok) throw new Error(`Server error: ${res.status}`)
       const data = await res.json()
       if (data.searchGuidance) setSearchGuidance(data.searchGuidance)
@@ -24,7 +24,7 @@ export default function Home() {
       setLeads(newLeads)
       setSearchStatus(newLeads.length > 0 ? `Found ${newLeads.length} leads — plus manual search links below` : 'No automated results — use the search links below')
     } catch (err) {
-      setSearchStatus('Search failed — is the backend running on port 3001?')
+      setSearchStatus('Search failed — backend not reachable. Check Railway logs.')
     } finally { setIsSearching(false) }
   }
 
@@ -56,9 +56,9 @@ export default function Home() {
               <div className="bg-purple-50 border border-purple-200 rounded-xl p-5">
                 <h3 className="text-base font-semibold text-purple-900 mb-3">📱 Social Media — Best for Informal Teams</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[{label:'Facebook Pages',url:searchGuidance.facebook,icon:'📘'},{label:'Facebook Groups',url:searchGuidance.facebookGroups,icon:'👥'},{label:'Instagram Search',url:searchGuidance.instagram,icon:'📷'},{label:'Twitter/X Users',url:searchGuidance.twitter,icon:'🐦'},{label:'WhatsApp Business Search',url:searchGuidance.whatsappBusiness,icon:'💬'},{label:'Google Maps / Near Me',url:searchGuidance.googleMaps,icon:'📍'}].filter(l=>l.url).map(link=>(
+                  {[{label:'Facebook Pages',url:searchGuidance.facebook,icon:'📘'},{label:'Instagram Search',url:searchGuidance.instagram,icon:'📷'},{label:'Twitter/X Users',url:searchGuidance.twitter,icon:'🐦'},{label:'Google Maps / Near Me',url:searchGuidance.googleMaps,icon:'📍'}].filter(l=>l.url).map(link=>(
                     <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white border border-purple-200 rounded-lg px-4 py-3 text-sm text-purple-700 hover:bg-purple-50 transition-colors">
-                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-purple-400">→</span>
+                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-purple-400">↗</span>
                     </a>
                   ))}
                 </div>
@@ -67,9 +67,9 @@ export default function Home() {
               <div className="bg-orange-50 border border-orange-200 rounded-xl p-5">
                 <h3 className="text-base font-semibold text-orange-900 mb-3">📋 Africa & Local Directories</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[{label:'Yellow Pages Nigeria',url:searchGuidance.yellowPages,icon:'📒'},{label:'VConnect Africa',url:searchGuidance.vconnect,icon:'🌍'},{label:'Bark.com Nigeria',url:searchGuidance.bark,icon:'🐾'},{label:'GoodFirms',url:searchGuidance.goodfirmsUrl,icon:'✅'},{label:'Clutch Agencies',url:searchGuidance.clutchUrl,icon:'🏆'},{label:'Google Search',url:searchGuidance.googleSearch,icon:'🔍'}].filter(l=>l.url).map(link=>(
+                  {[{label:'Yellow Pages Nigeria',url:searchGuidance.yellowPages,icon:'📒'},{label:'VConnect Africa',url:searchGuidance.vconnect,icon:'🌍'},{label:'Bark.com Nigeria',url:searchGuidance.bark,icon:'🐾'},{label:'Google Search',url:searchGuidance.googleSearch,icon:'🔍'}].filter(l=>l.url).map(link=>(
                     <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white border border-orange-200 rounded-lg px-4 py-3 text-sm text-orange-700 hover:bg-orange-50 transition-colors">
-                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-orange-400">→</span>
+                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-orange-400">↗</span>
                     </a>
                   ))}
                 </div>
@@ -79,7 +79,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[{label:'LinkedIn People Search',url:searchGuidance.linkedinSearch,icon:'🔗'},{label:'Google → LinkedIn Profiles',url:searchGuidance.googleLinkedIn,icon:'🌐'}].filter(l=>l.url).map(link=>(
                     <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white border border-blue-200 rounded-lg px-4 py-3 text-sm text-blue-700 hover:bg-blue-50 transition-colors">
-                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-blue-400">→</span>
+                      <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-blue-400">↗</span>
                     </a>
                   ))}
                 </div>
