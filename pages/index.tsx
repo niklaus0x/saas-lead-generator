@@ -3,6 +3,7 @@ import Head from 'next/head'
 import SearchForm from '@/components/SearchForm'
 import LeadsTable from '@/components/LeadsTable'
 import { Lead } from '@/types'
+import { apiPost } from '@/lib/api'
 
 export default function Home() {
   const [leads, setLeads] = useState<Lead[]>([])
@@ -15,16 +16,14 @@ export default function Home() {
     setIsSearching(true); setSearchGuidance(null); setSearchTermsUsed([])
     setSearchStatus('Searching web, directories, and business registries...')
     try {
-      const res = await fetch('/api/search-leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(searchParams) })
-      if (!res.ok) throw new Error(`Server error: ${res.status}`)
-      const data = await res.json()
+      const data = await apiPost('/api/search-leads', searchParams)
       if (data.searchGuidance) setSearchGuidance(data.searchGuidance)
       if (data.searchTermsUsed) setSearchTermsUsed(data.searchTermsUsed)
       const newLeads = (data.leads || []).map((l: Lead, i: number) => ({ ...l, id: l.id || `lead-${Date.now()}-${i}` }))
       setLeads(newLeads)
       setSearchStatus(newLeads.length > 0 ? `Found ${newLeads.length} leads — plus manual search links below` : 'No automated results — use the search links below')
-    } catch (err) {
-      setSearchStatus('Search failed — backend not reachable. Check Railway logs.')
+    } catch (err: any) {
+      setSearchStatus(`Search failed — ${err.message}`)
     } finally { setIsSearching(false) }
   }
 
@@ -56,18 +55,17 @@ export default function Home() {
               <div className="bg-purple-50 border border-purple-200 rounded-xl p-5">
                 <h3 className="text-base font-semibold text-purple-900 mb-3">📱 Social Media — Best for Informal Teams</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[{label:'Facebook Pages',url:searchGuidance.facebook,icon:'📘'},{label:'Instagram Search',url:searchGuidance.instagram,icon:'📷'},{label:'Twitter/X Users',url:searchGuidance.twitter,icon:'🐦'},{label:'Google Maps / Near Me',url:searchGuidance.googleMaps,icon:'📍'}].filter(l=>l.url).map(link=>(
+                  {[{label:'Facebook Pages',url:searchGuidance.facebook,icon:'📘'},{label:'Instagram Search',url:searchGuidance.instagram,icon:'📷'},{label:'Twitter/X Users',url:searchGuidance.twitter,icon:'🐦'},{label:'Google Maps',url:searchGuidance.googleMaps,icon:'📍'}].filter(l=>l.url).map(link=>(
                     <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white border border-purple-200 rounded-lg px-4 py-3 text-sm text-purple-700 hover:bg-purple-50 transition-colors">
                       <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-purple-400">↗</span>
                     </a>
                   ))}
                 </div>
-                <p className="mt-3 text-xs text-purple-700">💡 Most informal businesses in Nigeria are on Facebook & Instagram — search there first.</p>
               </div>
               <div className="bg-orange-50 border border-orange-200 rounded-xl p-5">
                 <h3 className="text-base font-semibold text-orange-900 mb-3">📋 Africa & Local Directories</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[{label:'Yellow Pages Nigeria',url:searchGuidance.yellowPages,icon:'📒'},{label:'VConnect Africa',url:searchGuidance.vconnect,icon:'🌍'},{label:'Bark.com Nigeria',url:searchGuidance.bark,icon:'🐾'},{label:'Google Search',url:searchGuidance.googleSearch,icon:'🔍'}].filter(l=>l.url).map(link=>(
+                  {[{label:'Yellow Pages Nigeria',url:searchGuidance.yellowPages,icon:'📒'},{label:'VConnect Africa',url:searchGuidance.vconnect,icon:'🌍'},{label:'Bark.com Nigeria',url:searchGuidance.bark,icon:'🐾'}].filter(l=>l.url).map(link=>(
                     <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white border border-orange-200 rounded-lg px-4 py-3 text-sm text-orange-700 hover:bg-orange-50 transition-colors">
                       <span>{link.icon}</span><span className="font-medium">{link.label}</span><span className="ml-auto text-orange-400">↗</span>
                     </a>
