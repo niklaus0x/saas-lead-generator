@@ -8,4 +8,4 @@ cmds = ["npm install"]
 cmds = ["npm run build"]
 
 [start]
-cmd = "node server/index.js & npm start"
+cmd = "API_PORT=3001 node server/index.js & npm start"
