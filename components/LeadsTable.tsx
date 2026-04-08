@@ -1,21 +1,30 @@
 import { useState } from 'react'
 import { Lead } from '@/types'
 
-interface LeadsTableProps { leads: Lead[]; searchGuidance?: Record<string, string> }
+interface LeadsTableProps {
+  leads: Lead[];
+  searchGuidance?: Record<string, string>;
+  onAddLead?: (lead: Lead) => void;
+  onUpdateLead?: (lead: Lead) => void;
+  onDeleteLead?: (id: string) => void;
+}
 
 function ScoreBadge({ score }: { score: number }) {
   const color = score >= 8 ? 'bg-green-100 text-green-700 border-green-300' : score >= 5 ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-red-100 text-red-700 border-red-300'
   return <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold border ${color}`}>{score}/10</span>
 }
 
-function LeadDrawer({ lead, onClose }: { lead: Lead; onClose: () => void }) {
+function LeadDrawer({ lead, onClose, onUpdate, onDelete }: { lead: Lead; onClose: () => void; onUpdate?: (l: Lead) => void; onDelete?: (id: string) => void }) {
   const waMsg = encodeURIComponent(`Hi ${lead.ownerName || 'there'}, I came across ${lead.companyName} and wanted to reach out about CrewPay — a platform that helps businesses like yours pay contractors only after work is verified. Would you be open to a quick 10-minute chat?`)
   return (
     <div className="fixed inset-0 z-50 flex justify-end" onClick={onClose}>
       <div className="w-full max-w-md bg-white h-full shadow-2xl overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <div><h2 className="font-bold text-gray-900 text-lg">{lead.companyName}</h2><p className="text-sm text-gray-500">{lead.source} · {lead.country}</p></div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+          <div className="flex items-center gap-2">
+            {onDelete && <button onClick={() => { onDelete(lead.id); onClose(); }} className="text-xs text-red-500 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50">Remove</button>}
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+          </div>
         </div>
         <div className="p-6 space-y-6">
           <div className="flex items-center gap-3">
@@ -45,7 +54,7 @@ function LeadDrawer({ lead, onClose }: { lead: Lead; onClose: () => void }) {
   )
 }
 
-export default function LeadsTable({ leads, searchGuidance }: LeadsTableProps) {
+export default function LeadsTable({ leads, searchGuidance, onAddLead, onUpdateLead, onDeleteLead }: LeadsTableProps) {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null)
   const [filters, setFilters] = useState({ hasWhatsApp: false, hasEmail: false, minScore: 0, showDuplicates: true })
   const [sortBy, setSortBy] = useState<'score' | 'name' | 'source'>('score')
@@ -62,7 +71,8 @@ export default function LeadsTable({ leads, searchGuidance }: LeadsTableProps) {
     })
 
   const exportData = async (format: string) => {
-    const res = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ leads: filtered, format }) })
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+    const res = await fetch(`${apiUrl}/api/export`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ leads: filtered, format }) })
     const blob = await res.blob()
     const ext = format === 'sheets' ? 'tsv' : format
     const url = URL.createObjectURL(blob)
@@ -73,8 +83,8 @@ export default function LeadsTable({ leads, searchGuidance }: LeadsTableProps) {
 
   return (
     <>
-      {selectedLead && <LeadDrawer lead={selectedLead} onClose={() => setSelectedLead(null)} />}
-      <div className="space-y-4">
+      {selectedLead && <LeadDrawer lead={selectedLead} onClose={() => setSelectedLead(null)} onUpdate={onUpdateLead} onDelete={onDeleteLead} />}
+      <div className="space-y-4 mt-6">
         <div className="bg-white rounded-2xl border border-gray-200 p-4 space-y-3">
           <div className="flex flex-wrap items-center gap-3 justify-between">
             <div className="flex items-center gap-2 flex-wrap">
