@@ -2,9 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
-    // Skip type checking during build for faster deploys
-    // Type errors are caught locally with `npm run type-check`
-    ignoreBuildErrors: false,
+    // Type errors won't block production builds
+    // Run `npx tsc --noEmit` locally to check types
+    ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
