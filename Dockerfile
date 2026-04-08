@@ -2,8 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Cache bust: 2026-04-08-v6
-ARG CACHEBUST=2026-04-08-v6
+# Cache bust: 2026-04-08-v7
+ARG CACHEBUST=2026-04-08-v7
 
 # Install all dependencies (including devDeps needed for Next.js build)
 COPY package.json ./
@@ -15,6 +15,9 @@ COPY . .
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+
+# Pin Express to internal port — Next.js gets the Railway PORT
+ENV API_PORT=3001
 
 # Build Next.js — TypeScript errors won't block (set in next.config.js)
 RUN npm run build
