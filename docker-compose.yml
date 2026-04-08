@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'   # Next.js frontend
+      - '3001:3001'   # Express API
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data   # Persist DB and JSON files
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3001/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# Optional: Add Redis for job queue scaling
+# redis:
+#   image: redis:7-alpine
+#   ports:
+#     - '6379:6379'
+#   restart: unless-stopped
