@@ -2,8 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
-    // Type errors won't block production builds
-    // Run `npx tsc --noEmit` locally to check types
     ignoreBuildErrors: true,
   },
   eslint: {
@@ -13,10 +11,13 @@ const nextConfig = {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
   },
   async rewrites() {
+    // On Railway: Express runs internally on API_PORT=3001
+    // Next.js proxies /api/* to it so the frontend works without CORS issues
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/:path*`,
+        destination: `${apiBase}/api/:path*`,
       },
     ];
   },
